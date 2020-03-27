@@ -1,0 +1,4 @@
+(executables
+    (names enumerate)
+    (libraries mote yojson)
+)

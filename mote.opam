@@ -1,0 +1,12 @@
+opam-version: "2.0"
+name: "mote"
+version: "0.1"
+author: "Calvin Smith"
+maintainer: "cjsmith@cs.wisc.edu"
+synopsis: "MOTif Enumeration for knowledge bases"
+depends: [
+    "ocaml" { >= "4.07" }
+    "yojson"
+    "containers"
+    "dune"
+]
