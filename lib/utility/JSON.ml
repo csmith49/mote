@@ -52,4 +52,4 @@ let of_jsonl parser filename =
 let to_jsonl obj_to_json objs filename =
     let out_channel = open_out filename in
     let jsons = CCList.map obj_to_json objs in
-    CCList.iter (Yojson.Basic.to_channel out_channel) jsons
+    CCList.iter (fun json -> let _ = Yojson.Basic.to_channel out_channel json in output_string out_channel "\n") jsons 
