@@ -25,18 +25,7 @@ let _ = Arg.parse spec_list print_endline usage_msg
 
 (* loading the motifs *)
 let _ = print_endline "Loading input motifs..."
-let motifs =
-    let motif_refs = ref [] in
-    let json_stream = Yojson.Basic.linestream_from_file !jsonl_filepath in
-    let _ = Stream.iter (fun json_line ->
-        let motif = match json_line with
-            | `Json json -> Motifs.Motif.of_json json
-            | _ -> None
-        in match motif with
-            | Some motif -> motif_refs := motif :: !motif_refs
-            | None -> ()
-    ) json_stream in
-    !motif_refs
+let motifs = Utility.JSON.of_jsonl Motifs.Motif.of_json !jsonl_filepath
 let _ = print_endline ("Done. Found " ^ (motifs |> CCList.length |> string_of_int) ^ " motifs.")
 
 (* convert to cone for synthesis *)
@@ -58,3 +47,4 @@ let submotifs = match !strategy with
         cone
     | _ -> print_endline "No synthesis strategy provided. Terminating synthesis..."; []
 let _ = print_endline ("Done. Synthesized " ^ (submotifs |> CCList.length |> string_of_int) ^ " motifs.")
+let _ = Utility.JSON.to_jsonl Motifs.Motif.to_json submotifs !motifs_filepath

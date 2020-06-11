@@ -35,3 +35,21 @@ let int json = match json with
     | _ -> None
 
 let identity json = Some json
+
+let of_jsonl parser filename = 
+    let objs = ref [] in
+    let stream = Yojson.Basic.linestream_from_file filename in
+    let _ = Stream.iter (fun line ->
+        let obj = match line with
+            | `Json json -> parser json
+            | _ -> None
+        in match obj with
+            | Some obj -> objs := obj :: !objs
+            | _ -> ()
+    ) stream in
+    !objs
+
+let to_jsonl obj_to_json objs filename =
+    let out_channel = open_out filename in
+    let jsons = CCList.map obj_to_json objs in
+    CCList.iter (Yojson.Basic.to_channel out_channel) jsons

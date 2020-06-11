@@ -15,35 +15,13 @@ let _ = print_endline "Starting evaluation..."
 
 (* loading the motifs *)
 let _ = print_endline "Loading data files..."
-let files =
-    let file_refs = ref [] in
-    let json_stream = Yojson.Basic.linestream_from_file !data_file in
-    let _ = Stream.iter (fun json_line ->
-        let filename = match json_line with
-            | `Json json -> Utility.JSON.string json
-            | _ -> None
-        in match filename with
-            | Some filename -> file_refs := filename :: !file_refs
-            | None -> ()
-    ) json_stream in
-    !file_refs
+let files = Utility.JSON.of_jsonl Utility.JSON.string !data_file
 let num_files = CCList.length files
 let _ = print_endline ("Done. Found " ^ (num_files |> string_of_int) ^ " data files.")
 
 (* loading the motifs *)
 let _ = print_endline "Loading input motifs..."
-let motifs =
-    let motif_refs = ref [] in
-    let json_stream = Yojson.Basic.linestream_from_file !motif_file in
-    let _ = Stream.iter (fun json_line ->
-        let motif = match json_line with
-            | `Json json -> Motifs.Motif.of_json json
-            | _ -> None
-        in match motif with
-            | Some motif -> motif_refs := motif :: !motif_refs
-            | None -> ()
-    ) json_stream in
-    !motif_refs
+let motifs = Utility.JSON.of_jsonl Motifs.Motif.of_json !motif_file
 let _ = print_endline ("Done. Found " ^ (motifs |> CCList.length |> string_of_int) ^ " motifs.")
 
 
