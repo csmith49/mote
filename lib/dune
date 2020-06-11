@@ -1,4 +1,4 @@
 (library
     (name mote)
-    (libraries core synthesis motifs)
+    (libraries core synthesis motifs domain)
 )

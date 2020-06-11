@@ -5,10 +5,14 @@ build=_build/default/bin
 
 # entrypoint just uses dune to build the synth tool
 .phony: all
-all: enumerate
-enumerate: lib
+all: enumerate evaluate
+enumerate: lib bin/enumerate.ml
 	dune build bin/enumerate.exe
 	mv $(build)/enumerate.exe enumerate
+
+evaluate: lib bin/evaluate.ml
+	dune build bin/evaluate.exe
+	mv $(build)/evaluate.exe evaluate
 
 # takes us into an interactive prompt with
 .phony: live
