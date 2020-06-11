@@ -1,4 +1,4 @@
 (executables
     (names enumerate)
-    (libraries mote yojson)
+    (libraries mote sqlite3)
 )

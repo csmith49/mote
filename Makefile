@@ -1,16 +1,22 @@
+# BUILD VARIABLES =======================
 build=_build/default/bin
 
-.PHONY: all
+# BUILDING THE TOOL =====================
+
+# entrypoint just uses dune to build the synth tool
+.phony: all
 all: enumerate
-enumerate: lib bin/enumerate.ml
+enumerate: lib
 	dune build bin/enumerate.exe
 	mv $(build)/enumerate.exe enumerate
 
-.PHONY: live
+# takes us into an interactive prompt with
+.phony: live
 live: lib
 	dune utop lib
 
-.PHONY: clean
+# for cleaning the bulid
+.phony: clean
 clean:
 	dune clean
 	rm -rf _build enumerate

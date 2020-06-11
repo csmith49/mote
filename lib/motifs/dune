@@ -1,0 +1,4 @@
+(library
+    (name motifs)
+    (libraries core utility)
+)

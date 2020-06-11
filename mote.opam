@@ -3,9 +3,9 @@ name: "mote"
 version: "0.1"
 author: "Calvin Smith"
 maintainer: "cjsmith@cs.wisc.edu"
-synopsis: "MOTif Enumeration for knowledge bases"
+synopsis: "Motif enumeration for knowledge bases"
 depends: [
-    "ocaml" { >= "4.07" }
+    "ocaml" { >= "4.07.0" }
     "yojson"
     "containers"
     "dune"
