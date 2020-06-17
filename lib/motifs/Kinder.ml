@@ -29,12 +29,16 @@ let implies left right = match left, right with
     | _ -> false
 let (=>) left right = implies left right
 
-let to_json = function
+(* let to_json = function
     | Star -> `Assoc [("kind", `String "*")]
     | Constant c -> `Assoc [
         ("kind", `String "constant");
         ("constant", Core.Value.to_json c)
-    ]
+    ] *)
+
+let to_json = function
+    | Star -> `String "*"
+    | Constant c -> Core.Value.to_json c
 
 let of_json json = match Core.Value.of_json json with
     | Some v -> Some (Constant v)

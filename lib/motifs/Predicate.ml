@@ -35,10 +35,7 @@ let apply pred map = match pred with
             | None -> false
 
 let to_json = function
-    | `Constant (attr, value) -> `Assoc [
-        ("kind", `String "constant");
-        ("attribute", `String attr);
-        ("value", Core.Value.to_json value)]
+    | `Constant (attr, value) -> `Assoc [ (attr, Core.Value.to_json value) ]
 
 let of_json json = match Utility.JSON.get "kind" Utility.JSON.string json with
     | Some s when s = "constant" ->
