@@ -9,4 +9,5 @@ depends: [
     "yojson"
     "containers"
     "dune"
+    "sqlite3" { >= "5.0.0" }
 ]

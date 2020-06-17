@@ -15,7 +15,7 @@ let _ = print_endline "Starting evaluation..."
 
 (* loading the motifs *)
 let _ = print_endline "Loading data files..."
-let files = Utility.JSON.of_jsonl Utility.JSON.string !data_file
+let files = Utility.JSON.of_jsonl (Utility.JSON.get "filename" Utility.JSON.string) !data_file
 let num_files = CCList.length files
 let _ = print_endline ("Done. Found " ^ (num_files |> string_of_int) ^ " data files.")
 
@@ -31,6 +31,7 @@ let sparse_image = ref (Domain.SparseImage.of_motifs motifs)
 let _ = CCList.iteri (fun i -> fun filename ->
     let _ = Printf.printf "Evaluating %s (%d/%d)\n%!" filename i num_files in
     let db = Domain.SQL.of_string filename in
+    let _ = Printf.printf "We did it" in
     let images = CCList.map (Domain.SQL.evaluate db) motifs in
     let _ = Domain.SQL.close db in
     sparse_image := Domain.SparseImage.add_results filename images !sparse_image

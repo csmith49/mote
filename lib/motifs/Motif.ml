@@ -73,7 +73,7 @@ module PartialOrder = struct
             |> CCList.filter (fun e -> Kinder.( (Core.Structure.Edge.label e) => lbl))
             (* make sure that some edge actually exists *)
             |> CCList.is_empty
-            |> CCBool.negate
+            |> not
     
     (* check if a vertex embeds *)
     let vertex_embeds left right embedding vertex = match E.image vertex embedding with

@@ -40,8 +40,12 @@ let of_map map = map
 
 let empty = []
 
-let to_json filter = `List (filter
-    |> CCList.map Predicate.to_json)
+let to_json filter = `Assoc (filter
+    |> CCList.map Predicate.to_json
+    |> CCList.map (fun json -> match json with
+        | `Assoc xs -> xs
+        | _ -> [])
+    |> CCList.flatten)
 
 let of_json json = Utility.JSON.assoc Core.Value.of_json json
     |> CCOpt.map (CCList.map Predicate.of_pair)
