@@ -1,4 +1,4 @@
 (library
     (name domain)
-    (libraries core sqlite3 motifs utility)
+    (libraries core motifs utility)
 )
